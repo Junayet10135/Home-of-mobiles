@@ -1,4 +1,5 @@
 document.getElementById('error-message').style.display = 'none';
+
 const searchMobile = () => {
     const searchField = document.getElementById('search-field');
     const searchText = searchField.value;
@@ -6,6 +7,7 @@ const searchMobile = () => {
     searchField.value = '';
     if (searchText == '') {
         // please write something to display
+        
         document.getElementById('error-message').style.display = 'block';
     }
     else {
@@ -22,14 +24,19 @@ const displaySearchResult = mobiles => {
     const searchResult = document.getElementById('search-result');
     searchResult.textContent = '';
     if (mobiles.length == 0) {
+
         // show no result found;
-        document.getElementById('error-message').style.display = 'block';
+        alert('not available')
+       // document.getElementById('error-message').style.display = 'block';
+       
     }
-    document.getElementById('error-message').style.display = 'none';
-    mobiles.slice(0,20).forEach(mobile => {
+    else{
+        document.getElementById('error-message').style.display = 'none';
+        mobiles.slice(0,20).forEach(mobile => {
         // console.log(mobile);
          const div = document.createElement('div');
-        div.classList.add('col-4');
+        div.classList.add('col-lg-4');
+        div.classList.add('col-sm-12');
         div.innerHTML = `
         <div class="card h-100">
             <img src="${mobile.image}" class="card-img-top" alt="...">
@@ -46,6 +53,7 @@ const displaySearchResult = mobiles => {
         const mobileDetails = document.getElementById('mobile-details');
         mobileDetails.textContent = '';
     })
+    }
 };
 const loadMobileDetail = id => {
     const url = `https://openapi.programming-hero.com/api/phone/${id}`;
@@ -54,7 +62,7 @@ const loadMobileDetail = id => {
         .then(data =>displayMobileDetail(data.data));
 }
 const displayMobileDetail = mobile => {
-    console.log(mobile);
+    
     const mobileDetails = document.getElementById('mobile-details');
     mobileDetails.textContent = '';
 
@@ -67,15 +75,19 @@ const displayMobileDetail = mobile => {
     div.innerHTML = `
     <img id="details-pic" src="${mobile.image}" class="card-img-top" alt="...">
     <div class="card-body">
+        <h5>${mobile.name}</h5>
         <p><b>Release Date: </b>${mobile.releaseDate ? mobile.releaseDate : 'Not declare yet'}</p>
         
         <div>
             <b>Chipset:</b> ${mobile.mainFeatures.chipSet},</br> 
             <b>Memory:</b> ${mobile.mainFeatures.memory},</br>
             <b>Storage:</b> ${mobile.mainFeatures.storage},</br>
-            <b>Display Size:</b> ${mobile.mainFeatures.displaySize}
+            <b>Display Size:</b> ${mobile.mainFeatures.displaySize},</br>
+            <b>Sensors:</b> ${mobile.mainFeatures.sensors},</br>
+            <b>Others:</b> ${mobile.others.WLAN}
+           
         </div>
-          
+         
     </div>
     `;
     mobileDetails.appendChild(div);

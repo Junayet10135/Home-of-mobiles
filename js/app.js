@@ -1,3 +1,4 @@
+document.getElementById('error-message').style.display = 'none';
 const searchMobile = () => {
     const searchField = document.getElementById('search-field');
     const searchText = searchField.value;
@@ -5,6 +6,7 @@ const searchMobile = () => {
     searchField.value = '';
     if (searchText == '') {
         // please write something to display
+        document.getElementById('error-message').style.display = 'block';
     }
     else {
         // load data
@@ -12,6 +14,7 @@ const searchMobile = () => {
         fetch(url)
             .then(res => res.json())
             .then(data => displaySearchResult(data.data))
+            document.getElementById('error-message').style.display = 'none';
     }
 };
 const displaySearchResult = mobiles => {
@@ -20,7 +23,9 @@ const displaySearchResult = mobiles => {
     searchResult.textContent = '';
     if (mobiles.length == 0) {
         // show no result found;
+        document.getElementById('error-message').style.display = 'block';
     }
+    document.getElementById('error-message').style.display = 'none';
     mobiles.slice(0,20).forEach(mobile => {
         // console.log(mobile);
          const div = document.createElement('div');
@@ -38,6 +43,8 @@ const displaySearchResult = mobiles => {
         </div>
         `;
         searchResult.appendChild(div); 
+        const mobileDetails = document.getElementById('mobile-details');
+        mobileDetails.textContent = '';
     })
 };
 const loadMobileDetail = id => {
@@ -47,25 +54,33 @@ const loadMobileDetail = id => {
         .then(data =>displayMobileDetail(data.data));
 }
 const displayMobileDetail = mobile => {
-   // console.log(mobile);
+    console.log(mobile);
     const mobileDetails = document.getElementById('mobile-details');
-    const div = document.createElement('div');
+    mobileDetails.textContent = '';
+
+    if(mobileDetails == ''){
+        document.getElementById('error-message').style.display = 'block';
+    }
+    else{
+        const div = document.createElement('div');
     div.classList.add('card');
     div.innerHTML = `
-    <img src="${mobile.image}" class="card-img-top" alt="...">
+    <img id="details-pic" src="${mobile.image}" class="card-img-top" alt="...">
     <div class="card-body">
-    
-        <h5 class="card-title">${mobile.releaseDate}</h5>
-      
+        <p><b>Release Date: </b>${mobile.releaseDate ? mobile.releaseDate : 'Not declare yet'}</p>
+        
+        <div>
             <b>Chipset:</b> ${mobile.mainFeatures.chipSet},</br> 
             <b>Memory:</b> ${mobile.mainFeatures.memory},</br>
             <b>Storage:</b> ${mobile.mainFeatures.storage},</br>
             <b>Display Size:</b> ${mobile.mainFeatures.displaySize}
-
+        </div>
           
     </div>
     `;
     mobileDetails.appendChild(div);
-}
+    document.getElementById('error-message').style.display = 'none';
+    }
+};
     
 

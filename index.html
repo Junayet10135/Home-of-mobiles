@@ -11,12 +11,16 @@
 <body>
     <section class="container  mt-4">
         <h1 class="text-center text-success">Home Of Mobile</h1>
+        
             <!-- Mobile search area -->
         <div class="input-group mb-3 w-50 mx-auto">
             <input id="search-field" type="text" class="form-control" placeholder="Search Your favorite Mobile"
             aria-label="Recipient's username" aria-describedby="button-addon2">
             <button onclick="searchMobile()" class="btn btn-outline-secondary" type="button"
             id="button-search">search</button>
+        </div>
+        <div>
+        <p id="error-message" class=" text-danger text-center">Something went wrong please try again later</p>
         </div>
          <!-- single mobile details -->
     <div id="mobile-details" class=" w-50 mx-auto">

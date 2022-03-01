@@ -1,12 +1,14 @@
+/* Error message div hiding */
 document.getElementById('error-message').style.display = 'none';
+document.getElementById('not-found').style.display = 'none';
 
+// Search Item
 const searchMobile = () => {
     const searchField = document.getElementById('search-field');
     const searchText = searchField.value;
     // clear data
     searchField.value = '';
     if (searchText == '') {
-        // please write something to display
         
         document.getElementById('error-message').style.display = 'block';
     }
@@ -19,18 +21,21 @@ const searchMobile = () => {
             document.getElementById('error-message').style.display = 'none';
     }
 };
-const displaySearchResult = mobiles => {
+
+    /* Display Data */
+
+    const displaySearchResult = mobiles => {
    // console.log(mobiles)
     const searchResult = document.getElementById('search-result');
     searchResult.textContent = '';
     if (mobiles.length == 0) {
 
         // show no result found;
-        alert('not available')
-       // document.getElementById('error-message').style.display = 'block';
+       document.getElementById('not-found').style.display = 'block';
        
     }
     else{
+        document.getElementById('not-found').style.display = 'none';
         document.getElementById('error-message').style.display = 'none';
         mobiles.slice(0,20).forEach(mobile => {
         // console.log(mobile);
@@ -39,7 +44,7 @@ const displaySearchResult = mobiles => {
         div.classList.add('col-sm-12');
         div.innerHTML = `
         <div class="card h-100">
-            <img src="${mobile.image}" class="card-img-top" alt="...">
+            <img src="${mobile.image}" class="card-img-top img-thumbnail" alt="...">
             <div class="card-body">
             <h5 class="card-title">${mobile.phone_name}</h5>
             <h3 class="card-title mb-3">${mobile.brand}</h3>
@@ -55,6 +60,7 @@ const displaySearchResult = mobiles => {
     })
     }
 };
+/* Single Data Display */
 const loadMobileDetail = id => {
     const url = `https://openapi.programming-hero.com/api/phone/${id}`;
     fetch(url)
@@ -72,10 +78,12 @@ const displayMobileDetail = mobile => {
     else{
         const div = document.createElement('div');
     div.classList.add('card');
+    
     div.innerHTML = `
-    <img id="details-pic" src="${mobile.image}" class="card-img-top" alt="...">
+    <img id="details-pic" src="${mobile.image}" class="card-img-top img-thumbnail" alt="...">
     <div class="card-body">
         <h5>${mobile.name}</h5>
+        <h4>${mobile.brand}</h4>
         <p><b>Release Date: </b>${mobile.releaseDate ? mobile.releaseDate : 'Not declare yet'}</p>
         
         <div>
@@ -90,12 +98,13 @@ const displayMobileDetail = mobile => {
             <b>NFC:</b> ${mobile.others?.NFC? mobile.others.NFC : 'data not available'},</br>
             <b>Radio:</b> ${mobile.others?.Radio? mobile.others.Radio : 'data not available'},</br>
             <b>USB:</b> ${mobile.others?.USB? mobile.others.USB : 'data not available'},</br>
-            <b>Gps:</b> ${mobile.others?.Gps? mobile.others.Gps : 'data not available'},</br>
+            <b>WLAN:</b> ${mobile.others?.WLAN? mobile.others.WLAN : 'data not available'},</br>
            
         </div>
          
     </div>
     `;
+     
     mobileDetails.appendChild(div);
     document.getElementById('error-message').style.display = 'none';
     }

@@ -27,7 +27,7 @@ const searchMobile = () => {
     /* Display Data */
 
     const displaySearchResult = mobiles => {
-   // console.log(mobiles)
+   
     const searchResult = document.getElementById('search-result');
     searchResult.textContent = '';
     if (mobiles.length == 0) {
@@ -41,7 +41,7 @@ const searchMobile = () => {
         document.getElementById('not-found').style.display = 'none';
         document.getElementById('error-message').style.display = 'none';
         mobiles.slice(0,20).forEach(mobile => {
-        // console.log(mobile);
+            
          const div = document.createElement('div');
         div.classList.add('col-lg-4');
         div.classList.add('col-sm-12');
@@ -58,25 +58,28 @@ const searchMobile = () => {
         </div>
         `;
         searchResult.appendChild(div); 
+        
         //clear previous data
         const mobileDetails = document.getElementById('mobile-details');
         mobileDetails.textContent = '';
     })
     }
 };
-/* Single Data Display */
-const loadMobileDetail = id => {
-    const url = `https://openapi.programming-hero.com/api/phone/${id}`;
-    fetch(url)
-        .then(res => res.json())
-        .then(data =>displayMobileDetail(data.data));
-}
-const displayMobileDetail = mobile => {
+    /* Single Data Display */
+    const loadMobileDetail = id => {
+        const url = `https://openapi.programming-hero.com/api/phone/${id}`;
+        fetch(url)
+            .then(res => res.json())
+            .then(data =>displayMobileDetail(data.data));
+    }
+    const displayMobileDetail = mobile => {
     
+         //clear previous data
     const mobileDetails = document.getElementById('mobile-details');
     mobileDetails.textContent = '';
 
     if(mobileDetails == ''){
+        //Display Error Message
         document.getElementById('error-message').style.display = 'block';
         document.getElementById('not-found').style.display = 'none';
     }
@@ -111,6 +114,7 @@ const displayMobileDetail = mobile => {
     `;
      
     mobileDetails.appendChild(div);
+    //remove Error messages
     document.getElementById('error-message').style.display = 'none';
     document.getElementById('not-found').style.display = 'none';
     }

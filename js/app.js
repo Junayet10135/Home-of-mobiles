@@ -11,6 +11,7 @@ const searchMobile = () => {
     if (searchText == '') {
         
         document.getElementById('error-message').style.display = 'block';
+        document.getElementById('not-found').style.display = 'none';
     }
     else {
         // load data
@@ -19,6 +20,7 @@ const searchMobile = () => {
             .then(res => res.json())
             .then(data => displaySearchResult(data.data))
             document.getElementById('error-message').style.display = 'none';
+            document.getElementById('not-found').style.display = 'none';
     }
 };
 
@@ -32,6 +34,7 @@ const searchMobile = () => {
 
         // show no result found;
        document.getElementById('not-found').style.display = 'block';
+       document.getElementById('error-message').style.display = 'none';
        
     }
     else{
@@ -46,8 +49,8 @@ const searchMobile = () => {
         <div class="card h-100">
             <img src="${mobile.image}" class="card-img-top img-thumbnail" alt="...">
             <div class="card-body">
-            <h5 class="card-title">${mobile.phone_name}</h5>
-            <h3 class="card-title mb-3">${mobile.brand}</h3>
+            <h5 class="card-title text-info">${mobile.phone_name}</h5>
+            <h3 class="card-title mb-3 text-success">${mobile.brand}</h3>
             <a href="#" class="btn btn-primary" onclick="loadMobileDetail('${mobile.slug}')">
                 Details
                 </a>
@@ -55,6 +58,7 @@ const searchMobile = () => {
         </div>
         `;
         searchResult.appendChild(div); 
+        //clear previous data
         const mobileDetails = document.getElementById('mobile-details');
         mobileDetails.textContent = '';
     })
@@ -74,6 +78,7 @@ const displayMobileDetail = mobile => {
 
     if(mobileDetails == ''){
         document.getElementById('error-message').style.display = 'block';
+        document.getElementById('not-found').style.display = 'none';
     }
     else{
         const div = document.createElement('div');
@@ -82,8 +87,8 @@ const displayMobileDetail = mobile => {
     div.innerHTML = `
     <img id="details-pic" src="${mobile.image}" class="card-img-top img-thumbnail" alt="...">
     <div class="card-body">
-        <h5>${mobile.name}</h5>
-        <h4>${mobile.brand}</h4>
+        <h5 class="text-info">${mobile.name}</h5>
+        <h4 class="text-success">${mobile.brand}</h4>
         <p><b>Release Date: </b>${mobile.releaseDate ? mobile.releaseDate : 'Not declare yet'}</p>
         
         <div>
@@ -107,6 +112,7 @@ const displayMobileDetail = mobile => {
      
     mobileDetails.appendChild(div);
     document.getElementById('error-message').style.display = 'none';
+    document.getElementById('not-found').style.display = 'none';
     }
 };
     

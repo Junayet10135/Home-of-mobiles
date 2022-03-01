@@ -83,8 +83,14 @@ const displayMobileDetail = mobile => {
             <b>Memory:</b> ${mobile.mainFeatures.memory},</br>
             <b>Storage:</b> ${mobile.mainFeatures.storage},</br>
             <b>Display Size:</b> ${mobile.mainFeatures.displaySize},</br>
-            <b>Sensors:</b> ${mobile.mainFeatures.sensors},</br>
-            <b>Others:</b> ${mobile.others.WLAN}
+            <b>Sensors:</b> ${mobile.mainFeatures.sensors},</br>           
+            <b>Others:</b>,</br>
+            <b>Bluetooth:</b> ${mobile.others?.Bluetooth? mobile.others.Bluetooth : 'data not available'},</br>
+            <b>GPS:</b> ${mobile.others?.GPS? mobile.others.GPS : 'data not available'},</br>
+            <b>NFC:</b> ${mobile.others?.NFC? mobile.others.NFC : 'data not available'},</br>
+            <b>Radio:</b> ${mobile.others?.Radio? mobile.others.Radio : 'data not available'},</br>
+            <b>USB:</b> ${mobile.others?.USB? mobile.others.USB : 'data not available'},</br>
+            <b>Gps:</b> ${mobile.others?.Gps? mobile.others.Gps : 'data not available'},</br>
            
         </div>
          
